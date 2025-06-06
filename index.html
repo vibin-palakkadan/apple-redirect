@@ -1,5 +1,5 @@
-<!-- redirect.html -->
-<!DOCTYPE html>
+<!-- <!-- redirect.html -->
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
@@ -19,4 +19,37 @@
   <body>
     Redirecting to your app...
   </body>
+</html>
+ --> -->
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Apple Redirect</title>
+</head>
+<body>
+  <p>Redirecting to the app...</p>
+  <script>
+    window.onload = function () {
+      // Apple injects a form and POSTs to it, so we need to wait for the form to appear
+      const form = document.forms[0];
+      if (form) {
+        const code = form.elements['code']?.value;
+        const idToken = form.elements['id_token']?.value;
+        const state = form.elements['state']?.value;
+
+        if (code) {
+          // Redirect to your Flutter app with the code
+          const redirectUrl = `https://ecohome-web-1eb844.gitlab.io/login?code=${encodeURIComponent(code)}&id_token=${encodeURIComponent(idToken)}&state=${encodeURIComponent(state)}`;
+          window.location.replace(redirectUrl);
+        } else {
+          document.body.innerHTML = '<p>Error: Authorization code not found.</p>';
+        }
+      } else {
+        document.body.innerHTML = '<p>Error: Form not found.</p>';
+      }
+    };
+  </script>
+</body>
 </html>
