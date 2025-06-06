@@ -25,32 +25,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Redirecting...</title>
+  <title>Processing Apple Sign-In...</title>
 </head>
 <body>
-  <p>Redirecting...</p>
+  <p>Processing Apple Sign-In...</p>
   <script>
     window.onload = function () {
       try {
+        // Access the first form in the document
         const form = document.forms[0];
         if (!form) {
-          document.body.innerHTML = "<p style='color:red;'>Form not found. This page should only be opened by Apple Sign In.</p>";
+          document.body.innerHTML = "<p style='color:red;'>Form not found. This page should only be accessed via Apple Sign-In.</p>";
           return;
         }
 
+        // Extract values from the hidden input fields
         const code = form.querySelector('input[name="code"]')?.value;
         const idToken = form.querySelector('input[name="id_token"]')?.value;
         const state = form.querySelector('input[name="state"]')?.value;
 
-        // ✅ Redirect to your app with the values in query parameters
-        const redirectUrl = `https://your-flutter-web-url/#/apple-redirect?code=${encodeURIComponent(code)}&id_token=${encodeURIComponent(idToken)}&state=${encodeURIComponent(state)}`;
+        if (!code || !idToken || !state) {
+          document.body.innerHTML = "<p style='color:red;'>Missing required parameters.</p>";
+          return;
+        }
+
+        // Construct the redirect URL to your Flutter web app
+        const redirectUrl = `https://ecohome-web-1eb844.gitlab.io/#/apple-redirect?code=${encodeURIComponent(code)}&id_token=${encodeURIComponent(idToken)}&state=${encodeURIComponent(state)}`;
+
+        // Redirect to your Flutter web app
         window.location.replace(redirectUrl);
-      } catch (e) {
-        console.error("Failed to extract Apple login data:", e);
-        document.body.innerHTML = "<p style='color:red;'>Error processing Apple login response.</p>";
+      } catch (error) {
+        console.error("Error processing Apple Sign-In response:", error);
+        document.body.innerHTML = "<p style='color:red;'>An error occurred while processing the sign-in response.</p>";
       }
     };
   </script>
 </body>
 </html>
+
 
