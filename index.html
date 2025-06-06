@@ -22,7 +22,7 @@
 </html>
  --> 
 
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -41,7 +41,7 @@
 
         if (code) {
           // Redirect to your Flutter app with the code
-          const redirectUrl = `https://ecohome-web-1eb844.gitlab.io/login?code=${encodeURIComponent(code)}&id_token=${encodeURIComponent(idToken)}&state=${encodeURIComponent(state)}`;
+          const redirectUrl = `https://ecohome-web-1eb844.gitlab.io/?code=${encodeURIComponent(code)}&id_token=${encodeURIComponent(idToken)}&state=${encodeURIComponent(state)}`;
           window.location.replace(redirectUrl);
         } else {
           document.body.innerHTML = '<p>Error: Authorization code not found.</p>';
