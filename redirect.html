@@ -1,0 +1,22 @@
+<!-- redirect.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <script>
+      window.onload = function () {
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+        const state = params.get('state');
+        const targetUrl = `http://localhost:5000/?code=${code}&state=${state}`;
+
+        // Redirect to your Flutter local server or wherever your app is running
+        window.location.href = targetUrl;
+      };
+    </script>
+  </head>
+  <body>
+    Redirecting to your app...
+  </body>
+</html>
